@@ -5,9 +5,9 @@ type MessageCallback = (message: DDPLog) => void
 const generateId = () => (Date.now() + Math.random()).toString(36)
 
 const injectOutboundInterceptor = (callback: MessageCallback) => {
-  const send = Meteor.connection._stream.send
+  const send = Meteor.remoteConnection._stream.send
 
-  Meteor.connection._stream.send = function (...args) {
+  Meteor.remoteConnection._stream.send = function (...args) {
     send.apply(this, args)
 
     callback({
@@ -20,7 +20,7 @@ const injectOutboundInterceptor = (callback: MessageCallback) => {
 }
 
 const injectInboundInterceptor = (callback: MessageCallback) => {
-  Meteor.connection._stream.on('message', (...args) => {
+  Meteor.remoteConnection._stream.on('message', (...args) => {
     callback({
       id: generateId(),
       content: args[0],

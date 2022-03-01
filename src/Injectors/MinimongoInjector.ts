@@ -16,7 +16,7 @@ const cleanup = (object: any) => {
 }
 
 const getCollections = () => {
-  const collections = Meteor.connection._mongo_livedata_collections
+  const collections = Meteor.remoteConnection._mongo_livedata_collections
 
   if (!collections) {
     warning(

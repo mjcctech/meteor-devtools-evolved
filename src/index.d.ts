@@ -8,7 +8,7 @@ interface Window {
 }
 
 declare module Meteor {
-  const connection: any
+  const remoteConnection: any
   const gitCommitHash: string | undefined | null
 }
 
